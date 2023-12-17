@@ -137,6 +137,7 @@
                 newInput.name = selectedOption;
                 newInput.placeholder = `Copier votre lien du réseau social ${selectedOption} ici`;
                 document.getElementById('selectContainer').appendChild(newInput);
+
         }
 
         function removeInput(selectedOption) {
@@ -148,40 +149,7 @@
             }
         }
         // Fonction pour ajouter un nouveau champ de sélection
-        function addNewSelect(selectedValue) {
-            // Créez un nouveau conteneur pour le champ de sélection
-            let $selectContainer = $('<div class="select-container"></div>');
-
-            // Créez un nouveau champ de sélection avec une classe unique
-            let $newSelect = $('<select class="network-select" multiple></select>');
-
-            // Clonez les options à partir de la première sélection
-            $('#monSelect option').clone().appendTo($newSelect);
-
-            // Supprimez les options correspondant aux valeurs sélectionnées
-            if (selectedValue) {
-                selectedValue.forEach(function (value) {
-                    $newSelect.find('option[value="' + value + '"]').remove();
-                });
-            }
-
-            // Ajoutez le nouveau champ de sélection au conteneur
-            $selectContainer.append($newSelect);
-
-            // Ajoutez le conteneur à la page
-            $('#selectContainer').append($selectContainer);
-
-            // Initialisez le nouveau champ de sélection avec Select2
-            $newSelect.select2({
-                placeholder: "Select options",
-                search: true,
-                templateResult: formatResult,
-                templateSelection: formatSelection
-            });
-
-            // Réinitialisez Select2 pour mettre à jour les événements
-            $('#monSelect').select2();
-        }
+        
 
         $(".addEmail").click(function () {
             let maxEmails = 5
@@ -339,17 +307,8 @@
                 reader.readAsDataURL(file);
             }
         }
+
     });
-
-
-    function submitForm(e) {
-        e.preventDefault()
-        let formData = {};
-        $(".content-form :input").each(function () {
-            formData[this.name] = $(this).val();
-        });
-        console.log(formData);
-    }
 
 
 </script>
@@ -371,17 +330,37 @@
             <div class="col-lg-6 offset-lg-3" data-aos="fade-up"  data-aos-delay="200" data-aos-duration="300">
                 <div class="heading two mb-5 text-center">
                     <h4><b>A lire :</b> En créant votre compte, vous initialisez votre demande d'obtention de votre carte, les informations que vous remplissez seront celles qui s'afficheront par défaut sur votre profil qui sera visible à tous ceux qui scanneront votre carte, mais vous pouvez toutefois modifier l'affichage de ces informations sur votre dashboard après connexion😉</h4>
+                    <h5 class="mt-3"><b>(*) : obligatoire</b></h5>
                 </div>
+                {% if form.errors %}
+                    <p class="text-center text-danger mt-2">Il y a des erreurs dans le formulaire. Veuillez corriger les champs marqués en rouge 😔.</p>
+                    <ul class="text-center text-danger">
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ field|capfirst }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            
                 <form class="content-form" action="{% url 'inscription' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <h3 class="mb-3">1 - Infos personnelles</h3>
-                        <input type="text" name="nom" placeholder="Votre nom complet">
-                        <p class="text-center text-danger mt-2">{{ form.nom.errors }}</p>
-                        <input type="text" name="prenom" placeholder="Votre prénom complet">
-                        <input type="text" name="adresse" placeholder="Votre adresse">
+                        <input type="text" name="last_name" placeholder="Votre nom complet (*)" value="{{ form.last_name.value|default:'' }}">
+                        <p class="text-center text-danger">{{ form.last_name.errors }}</p>
+                        <input type="text" name="first_name" class="mt-3" placeholder="Votre prénom complet (*)" value="{{ form.first_name.value|default:'' }}">
+                        <span id="first_name_error" class="text-danger"></span>
+                        <p class="text-center text-danger">{{ form.first_name.errors }}</p>
+                        <input type="text" name="adresse" class="mt-3" placeholder="Votre adresse (*)" value="{{ form.adresse.value|default:'' }}">
+                        <p class="text-center text-danger">{{ form.adresse.errors }}</p>
                         <div id="emailContainer" class="mb-3">
                             <div class="emailField">
                                 <label for="email" class="text-white">Votre premier email:</label>
-                                <input type="email" name="email1" placeholder="Votre premier email">
+                                <input type="email" name="email1" value="{{ form.email1.value|default:'' }}" placeholder="Votre premier email (*)">
+                                <p class="text-center text-danger">{{ form.email1.errors }}</p>
                                 <button type="button" class="removeEmail btn btn-danger mb-3" style="display:none;">Supprimer un email</button>
                             </div>
                             <center>
@@ -392,14 +371,15 @@
                         <div id="phoneContainer" class="mb-3">
                             <div class="phoneField">
                                 <label for="phone" class="text-white">Votre premier numéro de téléphone:</label>
-                                <input type="phone" name="phone1" placeholder="Votre premier numéro de téléphone">
+                                <input type="phone" name="phone1" value="{{ form.phone1.value|default:'' }}" placeholder="Votre premier numéro de téléphone (*)">
+                                <p class="text-center text-danger">{{ form.phone1.errors }}</p>
                                 <button type="button" class="removePhone btn btn-danger mb-3" style="display:none;">Supprimer un numéro de téléphone</button>
                             </div>
                             <center>
                             <button type="button" class="addPhone btn btn-success mb-3">Ajouter un nouveau numéro de téléphone</button>
                             </center>
                         </div>
-                        <p class="mb-3 text-center">Photo de couverture</p>
+                        <p class="mb-3 text-center">Photo de couverture (*)</p>
                         <center>
                         <div id="photo_preview">
                             <img id="preview_image" alt="Aucune image choisie">
@@ -408,13 +388,15 @@
                             Choisir une image
                         </label>
                         <input type="file" name="photo_couverture" id="photo_upload" accept="image/jpeg, image/png, image/jpg">
+                        <p class="text-center text-danger">{{ form.photo_couverture.errors }}</p>
                         </center>
                         
                         
                         
                         <h3 class="mb-3 mt-3">2 - Infos professionnelles</h3>
-                        <input type="text" name="fonction" placeholder="Votre fonction">
-                        <div id="selectContainer">
+                        <input type="text" name="fonction" value="{{ form.fonction.value|default:'' }}" placeholder="Votre fonction (*)">
+                        <p class="text-center text-danger">{{ form.fonction.errors }}</p>
+                        <div id="selectContainer" class="mt-3">
                             <select id="monSelect" style="width: 100%;" class="network-select" multiple>
                                 <!-- Ajoutez l'option disabled selected pour créer un placeholder -->
                                 <option value="facebook" data-image="{% static 'assets/img/logos/facebook.png' %}">Facebook</option>
@@ -434,15 +416,19 @@
                         <input type="text" name="siteweb" placeholder="Votre site web">
 
                         <h3 class="mb-3 mt-3">3 - Infos de connexion</h3>
-                        <p class="mb-3 text-center">Sélectionnez votre email pour la connexion à votre compte</p>
+                        <p class="mb-3 text-center">Sélectionnez votre email pour la connexion à votre compte (*)</p>
                         <select id="emailSelect" name="email"></select>
-                        <input type="password" name="password" placeholder="Mot de passe">
-                        <input type="password" name="confirm_password" placeholder="Confirmez votre mot de passe">
-                        <center>
-                        <button class="sec-btn" type="button" onclick="submitForm(event)">Valider votre commande</button>
-                        {% if form.errors %}
-                            <p class="text-center text-danger mt-2">Il y a des erreurs dans le formulaire. Veuillez corriger les champs marqués en rouge.</p>
+                        {% if form.password1.help_text %}
+                            <div class="helptext mb-3" id="id_password1_helptext">
+                                {{ form.password1.help_text }}
+                            </div>
                         {% endif %}
+                        <input type="password" value="{{ form.password1value|default:'' }}" name="password1" placeholder="Mot de passe (*)">
+                        <p class="text-center text-danger">{{ form.password1.errors }}</p>
+                        <input type="password" value="{{ form.password2value|default:'' }}" name="password2" class="mt-3" placeholder="Confirmez votre mot de passe (*)">
+                        <p class="text-center text-danger">{{ form.password2.errors }}</p>
+                        <center>
+                        <button class="sec-btn mt-3" type="submit">Valider votre commande</button>
                         
                         <p class="mt-3">
                             - Vous avez oublié votre mot de passe ?

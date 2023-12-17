@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Connexion{% endblock title %}
+
+
+{% block content %}
+<section class="hero-section " style="background-image: url({% static 'assets/img/our-img.jpg' %})">
+    <div class="container">
+        <h2 class="text-center">Success</h2>
+        <ul>
+            <li><i class="fa-solid fa-house"></i><a href="{% url 'index' %}">Home</a></li>
+        </ul>
+    </div>
+</section>
+<section class="gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3" data-aos="fade-up"  data-aos-delay="200" data-aos-duration="300">
+                <form class="content-form">
+                        <center>
+                            <div class="heading two mb-5 text-center">
+                                <h4>Nous avons reçu votre requête, nous allons vous appeler pour vous fournir votre carte 😉</h4>
+                            </div>
+                        </center>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

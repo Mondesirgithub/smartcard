@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email - Inscription d'un utilisateur</title>
+</head>
+<body>
+    <h1>Inscription d'un utilisateur</h1>
+    
+    <p>
+        Bonjour Mr, Un nouvel utilisateur s'est inscrit avec les informations suivantes:
+    </p>
+    
+    <ul>
+        <li><strong>Prénom(s):</strong> {{ user.first_name }}</li>
+        <li><strong>Nom(s):</strong> {{ user.last_name }}</li>
+        <li><strong>Email:</strong> {{ user.email }}</li>
+        <li><strong>Email1:</strong> {{ user.email1 }}</li>
+        <li><strong>Email2:</strong> {{ user.email2 }}</li>
+        <li><strong>Email3:</strong> {{ user.email3 }}</li>
+        <li><strong>Email4:</strong> {{ user.email4 }}</li>
+        <li><strong>Email5:</strong> {{ user.email5 }}</li>
+
+        <li><strong>Numéro de téléphone 1:</strong> {{ user.email1 }}</li>
+        <li><strong>Numéro de téléphone 2:</strong> {{ user.email2 }}</li>
+        <li><strong>Numéro de téléphone 3:</strong> {{ user.email3 }}</li>
+        <li><strong>Numéro de téléphone 4:</strong> {{ user.email4 }}</li>
+        <li><strong>Numéro de téléphone 5:</strong> {{ user.email5 }}</li>
+
+        ...
+
+        <p>
+            Accédez au <a href="https://smartcard.pythonanywhere.com/admin/comptes/utilisateur/{{user.id}}/change/">panneau d'administration de Smart Card</a> pour afficher les détails de l'utilisateur et pour approuver le compte
+        </p>
+    </ul>
+
+    <p>
+        Merci de vérifier et d'approuver le compte.
+    </p>
+
+    <p>
+        Cordialement
+    </p>
+    <p>
+        Smart Card
+    </p>
+</body>
+</html>

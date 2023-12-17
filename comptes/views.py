@@ -4,28 +4,48 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from .forms import InscriptionForm, ConnexionForm
+from django.core.mail import send_mail
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
 # Create your views here.
-
+"jesuschrist2000"
 def inscription(request):
     form = InscriptionForm()
 
     if request.method == "POST":
-        print("POST ===> ", request.POST)
-        print("FIELD ===> ", request.FILES)
-        form = InscriptionForm(request.POST, request.FILES)
+        # Create a mutable copy of the QueryDict
+        mutable_request_data = request.POST.copy()
+        
+        if 'email' in mutable_request_data:
+            mutable_request_data['username'] = mutable_request_data['email']
 
-        if form.is_valid():        
-            user = form.save()
-            login(request, user)
-            messages.success(request, "Le compte a été créé avec succès !!")
+        form = InscriptionForm(mutable_request_data, request.FILES)
 
-            return redirect('index')
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
 
-    context = {
-        'form': form
-    }
+            subject = "Création de compte"
+            template = 'comptes/email.html'
+            context = {'user':user}
+            html_message = render_to_string(template, context)
+            plain_message = strip_tags(html_message)  # Version texte brut du message
+            recipient_list = [settings.EMAIL_HOST_USER]
+            try:
+                send_mail(subject, plain_message, settings.EMAIL_HOST_USER, recipient_list, html_message=html_message) 
+                return redirect('success')                           
+            except:
+                messages.error(request, "Un problème est survenu lors de l'envoi du mail, vérifiez votre connexion peut être")
 
+    context = {'form': form}
     return render(request, 'comptes/inscription.html', context)
+
+
+
+def success(request):
+    
+    return render(request, 'comptes/success.html')
 
 
 def connexion(request):
