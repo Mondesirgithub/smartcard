@@ -31,7 +31,7 @@ def inscription(request):
             context = {'user':user}
             html_message = render_to_string(template, context)
             plain_message = strip_tags(html_message)  # Version texte brut du message
-            recipient_list = ["dieuveilb840@gmail.com", "ridelntsoumou@gmail.com"]
+            recipient_list = ["dieuveilb840@gmail.com", "ridelntsoumou@gmail.com", "ngoukoulouemmanuelprecieux1@gmail.com"]
             try:
                 send_mail(subject, plain_message, settings.EMAIL_HOST_USER, recipient_list, html_message=html_message) 
                 return redirect('success')                           
