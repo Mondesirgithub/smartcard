@@ -24,3 +24,5 @@ urlpatterns = [
     path('comptes/', include('comptes.urls')),
     path('', include('web.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
