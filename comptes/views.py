@@ -8,18 +8,21 @@ from .forms import InscriptionForm, ConnexionForm
 
 def inscription(request):
     form = InscriptionForm()
+
     if request.method == "POST":
+        print("POST ===> ", request.POST)
+        print("FIELD ===> ", request.FILES)
         form = InscriptionForm(request.POST, request.FILES)
 
-        if form.is_valid():
+        if form.is_valid():        
             user = form.save()
             login(request, user)
-            messages.success(request, "Le compte a été crée avec succès !!")
+            messages.success(request, "Le compte a été créé avec succès !!")
 
             return redirect('index')
 
     context = {
-        'form':form
+        'form': form
     }
 
     return render(request, 'comptes/inscription.html', context)

@@ -763,10 +763,10 @@ video {
     padding-top: 50px;
     padding-bottom: 20px;
 }
-.newsletter form input[type="text"]::placeholder{
+.newsletter form input[type="text"]::placeholder , input[type="password"]::placeholder{
     color: #ddd;
 }
-.newsletter form input[type="text"] {
+.newsletter form input[type="text"], input[type="password"] {
     width: 100%;
     height: 70px;
     padding-left: 30px;
@@ -2079,7 +2079,7 @@ ul.client-data.partner {
     font-size: 18px;
     color: #cfcfcf;
 }
-.expertise input[type="text"] {
+.expertise input[type="text"], input[type="password"] {
     width: 60%;
     height: 60px;
     padding-left: 31px;
@@ -3825,17 +3825,19 @@ button.active span{
     left: 36%;
 }
 /* 47. content */
-form.content-form input[type="text"] {
+form.content-form input[type="password"], input[type="email"], input[type="phone"], input[type="text"], input[type="file"] {
     width: 100%;
-    border-radius: 52px;
+    border-radius: 10px;
     height: 60px;
     padding-left: 30px;
     margin-bottom: 20px;
+    margin-top: -10px;
     border: 1px solid #c1c1c1;
     color: #555;
     outline: none;
 }
-form.content-form input[type="text"]::placeholder{
+
+form.content-form input[type="text"]::placeholder, input[type="password"]::placeholder{
     color: #555;
 }
 form.content-form textarea {

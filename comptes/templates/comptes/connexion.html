@@ -2,5 +2,39 @@
 {% load static %}
 {% block title %}Connexion{% endblock title %}
 
+
 {% block content %}
+<section class="hero-section " style="background-image: url({% static 'assets/img/our-img.jpg' %})">
+    <div class="container">
+        <h2 class="text-center">Connexion</h2>
+        <ul>
+            <li><i class="fa-solid fa-house"></i><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'connexion' %}">Connexion</a></li>  
+        </ul>
+    </div>
+</section>
+<section class="gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3" data-aos="fade-up"  data-aos-delay="200" data-aos-duration="300">
+                <form class="content-form">
+                        <input type="email" name="email" placeholder="adresse email">
+                        <input type="password" name="password" placeholder="Mot de passe">
+                        <center>
+                        <button class="sec-btn">Se connecter</button>
+                        <p class="mt-3">
+                            - Vous avez oublié votre mot de passe ?
+                        </p>
+                        <a href="{% url 'inscription' %}">Cliquez ici pour le réinitialiser</a>
+                        <p class="mt-3">
+                            - Vous n'avez pas de compte ? c'est que vous n'avez pas encore reçu un de nos cartes numériques
+                        </p>
+                        <a href="{% url 'inscription' %}">Cliquez ici pour procéder à la commande</a>
+                        </center>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock content %}

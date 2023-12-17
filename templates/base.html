@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
 	<!-- color -->
   <link rel="stylesheet" href="{% static 'assets/css/color.css' %}">
+  {% block scriptSelectHead %}{% endblock scriptSelectHead %}
+
 </head>
 <body class="menu-layer">
 <!-- Loader Start -->
@@ -94,7 +96,7 @@
 							<svg enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m128 102.4c0-14.138 11.462-25.6 25.6-25.6h332.8c14.138 0 25.6 11.462 25.6 25.6s-11.462 25.6-25.6 25.6h-332.8c-14.138 0-25.6-11.463-25.6-25.6zm358.4 128h-460.8c-14.138 0-25.6 11.463-25.6 25.6 0 14.138 11.462 25.6 25.6 25.6h460.8c14.138 0 25.6-11.462 25.6-25.6 0-14.137-11.462-25.6-25.6-25.6zm0 153.6h-230.4c-14.137 0-25.6 11.462-25.6 25.6 0 14.137 11.463 25.6 25.6 25.6h230.4c14.138 0 25.6-11.463 25.6-25.6 0-14.138-11.462-25.6-25.6-25.6z"/></svg>
 							</a>
 						</div>
-							<a href="javascript:void(0)" class="lightbox-toggle sec-btn">Get a Quote</a>
+							<a href="{% url 'connexion' %}" class="lightbox-toggle sec-btn">Se connecter</a>
 					</div>
 				</div>
 			</div>
@@ -183,6 +185,15 @@
 
       </div>
   </header>
+
+  {% if messages %}
+    {% for message in messages %}
+        <div class="{% if message.tags == 'error' %} alert alert-danger {% else %} alert alert-{{message.tags}}{% endif %} alert-dismissible" role="alert" style="height: 60px;margin-bottom: 0px;">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong style="font-size: 20px;">{{message}}</strong>
+        </div>
+    {% endfor %}
+  {% endif %}
 
 {% block content %}
       
@@ -389,7 +400,7 @@
   <!-- scroll -->
 <a href="#" id="scroll" style="display: none;"><span></span></a>
 <!-- Bootstrap Js -->
-<script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
 <!-- fancybox -->
@@ -401,5 +412,6 @@
 <!-- aos -->
 <script src="{% static 'assets/js/aos.js' %}"></script>
 <!-- custom -->
-<script src="{% static 'assets/js/custom.js' %}"></script>	
+<script src="{% static 'assets/js/custom.js' %}"></script>
+{% block scriptSelectFooter %}{% endblock scriptSelectFooter %}	
 </body>
