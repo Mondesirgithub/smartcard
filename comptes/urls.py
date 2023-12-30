@@ -7,6 +7,7 @@ urlpatterns = [
     path('inscription/', myviews.inscription, name='inscription'),
     path('success/', myviews.success, name='success'),
     path('connexion/', myviews.connexion, name='connexion'),
+    path('profile/', myviews.profile, name='profile'),
     path('deconnexion/', myviews.deconnexion, name='deconnexion'),
     path('reset_password/', views.PasswordResetView.as_view(template_name="comptes/password_reset.html"), name='password_reset'),
     path('reset_password_sent/', views.PasswordResetDoneView.as_view(template_name="comptes/password_reset_done.html"), name='password_reset_done'),

@@ -6,7 +6,7 @@ class UtilisateurAdmin(admin.ModelAdmin):
     search_fields = ('last_name', 'first_name', 'email', 'fonction')
     list_filter = ('fonction',)
     fieldsets = (
-        ('Informations personnelles', {'fields': ('last_name', 'first_name', 'adresse', 'photo_couverture', 'email1','email2','email3','email4','email5')}),
+        ('Informations personnelles', {'fields': ('last_name', 'first_name', 'adresse', 'photo_couverture', 'photo_profile', 'email1','email2','email3','email4','email5')}),
         ('Informations professionnelles', {'fields': ('fonction', 'facebook', 'instagram', 'whatsapp_business', 'quora', 'reddit', 'snapchat', 'pinterest', 'youtube', 'linkedin', 'medium', 'tiktok', 'siteweb')}),
         ('informations de connexion', {'fields': ('username', 'email', 'password', 'last_login', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active', 'date_joined')}),
     )

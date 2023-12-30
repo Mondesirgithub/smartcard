@@ -13,7 +13,8 @@ class InscriptionForm(UserCreationForm):
     email1 = forms.EmailField(widget=forms.EmailInput, required=True, error_messages={'required': 'Le premier email est obligatoire'})
     phone1 = forms.CharField(widget=forms.TextInput, required=True, error_messages={'required': 'Le premier numéro de téléphone est obligatoire'})
     fonction = forms.CharField(widget=forms.TextInput, required=True, error_messages={'required': 'La fonction est obligatoire'})
-    photo_couverture = forms.ImageField(widget=forms.FileInput, required=True, error_messages={'required': 'La photo de couverture est obligatoire'})
+    photo_couverture = forms.ImageField(widget=forms.FileInput, required=False)
+    photo_profile = forms.ImageField(widget=forms.FileInput, required=True, error_messages={'required': 'La photo de profile est obligatoire'})
     
     email2 = forms.EmailField(widget=forms.EmailInput, required=False)
     email3 = forms.EmailField(widget=forms.EmailInput, required=False)
@@ -45,7 +46,7 @@ class InscriptionForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
         fields = ['username', 'adresse', 'first_name', 'last_name', 'email','email1', 'phone1', 'fonction',
-                  'photo_couverture', 'email2', 'email3', 'email4', 'email5', 'phone2', 'phone3', 'phone4',
+                  'photo_couverture','photo_profile', 'email2', 'email3', 'email4', 'email5', 'phone2', 'phone3', 'phone4',
                   'phone5', 'siteweb', 'facebook', 'instagram', 'x', 'whatsapp_business', 'quora', 'reddit',
                   'snapchat', 'pinterest', 'youtube', 'linkedin', 'medium', 'tiktok']
 

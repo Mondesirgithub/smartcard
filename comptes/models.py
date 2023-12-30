@@ -14,6 +14,13 @@ def user_cover_photo_path(instance, filename):
     return os.path.join('photos_couv', user_folder, date_folder, filename)
 
 
+def user_profile_photo_path(instance, filename):
+    user_folder = f"{instance.last_name}_{instance.first_name}"
+    today = datetime.today()
+    date_folder = today.strftime("%Y/%m/%d")
+    filename = f"{today.strftime('%H-%M-%S')}_{filename}"
+    return os.path.join('photos_profile', user_folder, date_folder, filename)
+
 class Utilisateur(AbstractUser):
     adresse = models.CharField(max_length=255, blank=False)
     email1 = models.EmailField(blank=False)
@@ -31,7 +38,8 @@ class Utilisateur(AbstractUser):
     fonction = models.CharField(max_length=255, blank=False)
     siteweb = models.URLField(blank=True)
 
-    photo_couverture = models.ImageField(upload_to=user_cover_photo_path, blank=False, null=False)
+    photo_couverture = models.ImageField(upload_to=user_cover_photo_path, blank=True, null=True)
+    photo_profile = models.ImageField(upload_to=user_profile_photo_path, blank=False, null=False)
 
     facebook = models.URLField(blank=True)
     instagram = models.URLField(blank=True)

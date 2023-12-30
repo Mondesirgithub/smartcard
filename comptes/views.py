@@ -20,11 +20,8 @@ def inscription(request):
             mutable_request_data['username'] = mutable_request_data['email']
 
         form = InscriptionForm(mutable_request_data, request.FILES)
-
         if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
+            user = form.save()
 
             subject = "Création de compte"
             template = 'comptes/email.html'
@@ -75,6 +72,10 @@ def deconnexion(request):
     logout(request)
     return render(request, 'comptes/deconnexion.html')
 
+
+
+def profile(request):
+    return render(request, 'comptes/profile.html')
 
 
 # @login_required
