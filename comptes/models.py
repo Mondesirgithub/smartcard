@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .utils.functions import *
 import os
+import uuid
 # Create your models here.
 
 
@@ -22,6 +23,7 @@ def user_profile_photo_path(instance, filename):
     return os.path.join('photos_profile', user_folder, date_folder, filename)
 
 class Utilisateur(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     adresse = models.CharField(max_length=255, blank=False)
     email1 = models.EmailField(blank=False)
     email2 = models.EmailField(blank=True)

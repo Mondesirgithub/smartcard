@@ -7,6 +7,8 @@ from .forms import InscriptionForm, ConnexionForm
 from django.core.mail import send_mail
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
+from .models import Utilisateur
+
 # Create your views here.
 "jesuschrist2000"
 def inscription(request):
@@ -75,7 +77,17 @@ def deconnexion(request):
 
 
 def profile(request):
-    return render(request, 'comptes/profile.html')
+    user = None
+    try:
+        id = request.GET.get("id")
+        user = Utilisateur.objects.get(pk=id)
+    except Exception as e:
+        messages.error(request, f"Erreur : {e}")
+        return redirect("index")
+    context = {
+        "user":user
+    }
+    return render(request, 'comptes/profile.html', context)
 
 
 # @login_required
