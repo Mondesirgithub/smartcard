@@ -1,65 +1,70 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block title %}inscription{% endblock title %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}inscription{% endblock title %} 
 {% block scriptSelectHead %}
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link
+  href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+  rel="stylesheet"
+/>
 <style>
-    .errorlist li{
-        list-style-type : none;
-        color: red;
-        margin-top: -5px;
-        margin-left: -0.5px;  
-    }
+  .errorlist li {
+    list-style-type: none;
+    color: red;
+    margin-top: -5px;
+    margin-left: -0.5px;
+  }
 
-    .select2-container--default .select2-results__option img,
-    .select2-container--default .select2-selection__rendered img {
-        max-width: 20px;  /* Définissez la largeur maximale */
-        max-height: 20px; /* Définissez la hauteur maximale */
-        margin-right: 5px;
-    }
+  .select2-container--default .select2-results__option img,
+  .select2-container--default .select2-selection__rendered img {
+    max-width: 20px; /* Définissez la largeur maximale */
+    max-height: 20px; /* Définissez la hauteur maximale */
+    margin-right: 5px;
+  }
 
-    #emailSelect{
-        display: flex;
-        align-items: center;
-        width: 100%;
-        height: 60px;
-        border-radius: 10px;
-        padding-left: 30px;
-        margin-bottom: 20px;
-        margin-top: -10px;
-        border: 1px solid #c1c1c1;
-        color: #555;
-        outline: none;        
-    }
-    .select2-container--default .select2-selection--multiple {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        height: 100% !important;
-        border-radius: 10px;
-        padding-left: 30px;
-        margin-bottom: 20px;
-        margin-top: -10px;
-        border: 1px solid #c1c1c1;
-        color: #555;
-        outline: none;
-    }
+  #emailSelect {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    border-radius: 10px;
+    padding-left: 30px;
+    margin-bottom: 20px;
+    margin-top: -10px;
+    border: 1px solid #c1c1c1;
+    color: #555;
+    outline: none;
+  }
+  .select2-container--default .select2-selection--multiple {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100% !important;
+    border-radius: 10px;
+    padding-left: 30px;
+    margin-bottom: 20px;
+    margin-top: -10px;
+    border: 1px solid #c1c1c1;
+    color: #555;
+    outline: none;
+  }
 
-    .select2-container--default .select2-selection__choice {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+  .select2-container--default .select2-selection__choice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .select2-container--default
+    .select2-selection--single
+    .select2-selection__rendered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .select2-container--default .select2-selection__arrow {
-        top: 50%;
-        transform: translateY(-50%);
-    }
+  .select2-container--default .select2-selection__arrow {
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
     #photo_preview, #photo_preview1 {
         border-radius: 20px;
@@ -85,37 +90,35 @@
     }
     
 
-    .custom-file-upload {
-        display: inline-block;
-        padding: 8px 12px;
-        cursor: pointer;
-        background-color: #4CAF50;
-        color: #fff;
-        border-radius: 4px;
-    }
+  .custom-file-upload {
+    display: inline-block;
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: #fff;
+    border-radius: 4px;
+  }
 </style>
-{% endblock scriptSelectHead %}
-
-
+{% endblock scriptSelectHead %} 
 {% block scriptSelectFooter %}
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-    $(document).ready(function () {
-        // Initialisez la liste des réseaux sociaux
-        let socialMediaList = [];
+  $(document).ready(function () {
+    // Initialisez la liste des réseaux sociaux
+    let socialMediaList = [];
 
-        $('#monSelect').select2({
-            // Ajoutez l'option placeholder avec le texte que vous souhaitez afficher
-            placeholder: "Réseaux sociaux",
-            search: true,
-            // Utilisez le format de résultat personnalisé pour inclure des images
-            templateResult: formatResult,
-            // Utilisez le format de sélection personnalisé pour inclure des images dans la sélection
-            templateSelection: formatSelection
-        });
-        $('#monSelect').on('select2:unselect', function (e) {
-            // Récupérez l'élément qui a été retiré
-            let removedElement = e.params.data.id;
+    $("#monSelect").select2({
+      // Ajoutez l'option placeholder avec le texte que vous souhaitez afficher
+      placeholder: "Réseaux sociaux",
+      search: true,
+      // Utilisez le format de résultat personnalisé pour inclure des images
+      templateResult: formatResult,
+      // Utilisez le format de sélection personnalisé pour inclure des images dans la sélection
+      templateSelection: formatSelection,
+    });
+    $("#monSelect").on("select2:unselect", function (e) {
+      // Récupérez l'élément qui a été retiré
+      let removedElement = e.params.data.id;
 
             removeInput(removedElement)
 
@@ -334,19 +337,239 @@
         }
     });
 
+    $("#monSelect").on("select2:select", function (e) {
+      // Récupérez l'élément qui a été retiré
+      let selectedElement = e.params.data.id;
 
+      addInput(selectedElement);
+
+      // Ajoutez ici le code pour gérer l'élément retiré
+    });
+
+    function addInput(selectedOption) {
+      let newInput = document.createElement("input");
+      newInput.type = "text";
+      newInput.name = selectedOption;
+      newInput.placeholder = `Copier votre lien du réseau social ${selectedOption} ici`;
+      document.getElementById("selectContainer").appendChild(newInput);
+    }
+
+    function removeInput(selectedOption) {
+      let inputs = document.getElementsByName(selectedOption);
+      let lastInput = inputs[inputs.length - 1];
+
+      if (lastInput) {
+        lastInput.parentNode.removeChild(lastInput);
+      }
+    }
+    // Fonction pour ajouter un nouveau champ de sélection
+
+    $(".addEmail").click(function () {
+      let maxEmails = 5;
+      if ($(".emailField").length < maxEmails) {
+        let emailCount = $(".emailField").length + 1;
+        let emailLabel = getOrdinalNumber(emailCount - 1, "email");
+        let newEmailField =
+          '<div class="emailField mb-3"><label for="email" class="text-white">Votre ' +
+          emailLabel +
+          ' email:</label><input type="email" name="email' +
+          emailCount +
+          '" placeholder="Votre ' +
+          emailLabel +
+          ' email"><button type="button" class="removeEmail btn btn-danger mb-3">Supprimer un email</button></div>';
+        $("#emailContainer").append(newEmailField);
+        $(".removeEmail").show();
+      } else {
+        alert("Vous ne pouvez pas ajouter plus de 5 adresses emails.");
+      }
+    });
+
+    $(".addPhone").click(function () {
+      let maxPhones = 5;
+      if ($(".phoneField").length < maxPhones) {
+        let phoneCount = $(".phoneField").length + 1;
+        let phoneLabel = getOrdinalNumber(phoneCount - 1, "phone");
+        let newPhoneField =
+          '<div class="phoneField mb-3"><label for="phone" class="text-white">Votre ' +
+          phoneLabel +
+          ' numéro de téléphone:</label><input type="phone" name="phone' +
+          phoneCount +
+          '" placeholder="Votre ' +
+          phoneLabel +
+          ' numéro de téléphone"><button type="button" class="removePhone btn btn-danger mb-3">Supprimer un numéro de téléphone</button></div>';
+        $("#phoneContainer").append(newPhoneField);
+        $(".removePhone").show();
+      } else {
+        alert("Vous ne pouvez pas ajouter plus de 5 numéros de téléphone.");
+      }
+    });
+
+    // Supprimer le dernier champ email
+    $("#emailContainer").on("click", ".removeEmail", function () {
+      $(this).parent(".emailField").remove();
+      if ($("#emailContainer .emailField").length === 1) {
+        $(".removeEmail").hide();
+      }
+      updateAttributes("email");
+      updateEmailSelect();
+    });
+
+    $("#phoneContainer").on("click", ".removePhone", function () {
+      $(this).parent(".phoneField").remove();
+      if ($("#phoneContainer .phoneField").length === 1) {
+        $(".removePhone").hide();
+      }
+      updateAttributes("phone");
+    });
+
+    function getOrdinalNumber(number, field) {
+      if (number === 0) return "premier";
+      if (number === 1) return "deuxième";
+      if (number === 2) return "troisième";
+      if (number === 3) return "quatrième";
+      if (number === 4) return "cinquième";
+      return field === "email"
+        ? "email " + (number + 1)
+        : "phone " + (number + 1);
+    }
+
+    // Mettre à jour les attributs à chaque suppression
+    function updateAttributes(field) {
+      if (field === "email") {
+        $(".emailField").each(function (index) {
+          let emailLabel = getOrdinalNumber(index);
+          $(this)
+            .find("label")
+            .text("Votre " + emailLabel + " email:");
+          $(this)
+            .find("input")
+            .attr({
+              name: "email" + (index + 1),
+              placeholder: "Votre " + emailLabel + " email",
+            });
+        });
+      } else {
+        $(".phoneField").each(function (index) {
+          let phoneLabel = getOrdinalNumber(index, "phone");
+          $(this)
+            .find("label")
+            .text("Votre " + phoneLabel + " numéro de téléphone:");
+          $(this)
+            .find("input")
+            .attr({
+              name: "phone" + (index + 1),
+              placeholder: "Votre " + phoneLabel + " numéro de téléphone",
+            });
+        });
+      }
+
+      $(this)
+        .find("input")
+        .on("change", function () {
+          // Afficher la valeur dans la console
+          console.log($(this).val());
+        });
+    }
+
+    function updateEmailSelect() {
+      let emailOptions = [];
+      $(".emailField input").each(function () {
+        let emailValue = $(this).val();
+        if (emailValue.trim() !== "") {
+          emailOptions.push(
+            '<option value="' + emailValue + '">' + emailValue + "</option>"
+          );
+        }
+      });
+      $("#emailSelect").html(emailOptions.join(""));
+    }
+
+    // Ajouter l'e-mail au select au moment où l'on finit de saisir l'e-mail
+    $("#emailContainer").on("blur", "input[type=email]", function () {
+      if ($(this).val().trim() !== "") {
+        updateEmailSelect();
+      }
+    });
+
+    // Fonction pour formater le résultat avec des images
+    function formatResult(result) {
+      if (!result.id) {
+        return result.text;
+      }
+
+      // Créez un élément span contenant une image et le texte de l'option
+      let $result = $(
+        '<span><img src="' +
+          result.element.getAttribute("data-image") +
+          '" class="img-flag" /> ' +
+          result.text +
+          "</span>"
+      );
+
+      return $result;
+    }
+
+    // Fonction pour formater la sélection avec des images
+    function formatSelection(result) {
+      // Si l'option sélectionnée n'a pas d'id, retournez le texte par défaut
+      if (!result.id) {
+        return result.text;
+      }
+
+      // Créez un élément span contenant une image et le texte de l'option sélectionnée
+      let $selection = $(
+        '<span><img src="' +
+          result.element.getAttribute("data-image") +
+          '" class="img-flag" /> ' +
+          result.text +
+          "</span>"
+      );
+
+      return $selection;
+    }
+
+    // Détecter le changement de l'input de type file
+    $("#photo_upload").change(function () {
+      previewImage(this);
+    });
+
+    function previewImage(input) {
+      var file = input.files[0];
+
+      if (file) {
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        if (!allowedExtensions.exec(file.name)) {
+          alert(
+            "Veuillez télécharger un fichier de type image (JPG, JPEG, PNG)."
+          );
+          $("#photo_upload").val("");
+          return;
+        }
+
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          $("#preview_image").attr("src", e.target.result);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    }
 </script>
-{% endblock scriptSelectFooter %}
-
-{% block content %}
-<section class="hero-section " style="background-image: url({% static 'assets/img/our-img.jpg' %})">
-    <div class="container">
-        <h2 class="text-center">Inscription</h2>
-        <ul>
-            <li><i class="fa-solid fa-house"></i><a href="{% url 'index' %}">Accueil</a></li>
-            <li><a href="{% url 'inscription' %}">Inscription</a></li>  
-        </ul>
-    </div>
+{% endblock scriptSelectFooter %} {% block content %}
+<section
+  class="hero-section"
+  style="background-image: url({% static 'assets/img/our-img.jpg' %})"
+>
+  <div class="container">
+    <h2 class="text-center">Inscription</h2>
+    <ul>
+      <li>
+        <i class="fa-solid fa-house"></i><a href="{% url 'index' %}">Accueil</a>
+      </li>
+      <li><a href="{% url 'inscription' %}">Inscription</a></li>
+    </ul>
+  </div>
 </section>
 <section class="gap">
     <div class="container">
@@ -478,7 +701,260 @@
                 </form>
             </div>
         </div>
+        {% if form.errors %}
+        <p class="text-center text-danger mt-2">
+          Il y a des erreurs dans le formulaire. Veuillez corriger les champs
+          marqués en rouge 😔.
+        </p>
+        <ul class="text-center text-danger">
+          {% for field, errors in form.errors.items %} {% for error in errors %}
+          <li>{{ field|capfirst }}: {{ error }}</li>
+          {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form
+          class="content-form"
+          action="{% url 'inscription' %}"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          {% csrf_token %}
+          <h3 class="mb-3">1 - Infos personnelles</h3>
+          <input
+            type="text"
+            name="last_name"
+            placeholder="Votre nom complet (*)"
+            value="{{ form.last_name.value|default:'' }}"
+          />
+          <p class="text-center text-danger">{{ form.last_name.errors }}</p>
+          <input
+            type="text"
+            name="first_name"
+            class="mt-3"
+            placeholder="Votre prénom complet (*)"
+            value="{{ form.first_name.value|default:'' }}"
+          />
+          <span id="first_name_error" class="text-danger"></span>
+          <p class="text-center text-danger">{{ form.first_name.errors }}</p>
+          <input
+            type="text"
+            name="adresse"
+            class="mt-3"
+            placeholder="Votre adresse (*)"
+            value="{{ form.adresse.value|default:'' }}"
+          />
+          <p class="text-center text-danger">{{ form.adresse.errors }}</p>
+          <div id="emailContainer" class="mb-3">
+            <div class="emailField">
+              <label for="email" class="text-white">Votre premier email:</label>
+              <input
+                type="email"
+                name="email1"
+                value="{{ form.email1.value|default:'' }}"
+                placeholder="Votre premier email (*)"
+              />
+              <p class="text-center text-danger">{{ form.email1.errors }}</p>
+              <button
+                type="button"
+                class="removeEmail btn btn-danger mb-3"
+                style="display: none"
+              >
+                Supprimer un email
+              </button>
+            </div>
+            <center>
+              <button type="button" class="addEmail btn btn-success mb-3">
+                Ajouter un nouvel email
+              </button>
+            </center>
+          </div>
+
+          <div id="phoneContainer" class="mb-3">
+            <div class="phoneField">
+              <label for="phone" class="text-white"
+                >Votre premier numéro de téléphone:</label
+              >
+              <input
+                type="phone"
+                name="phone1"
+                value="{{ form.phone1.value|default:'' }}"
+                placeholder="Votre premier numéro de téléphone (*)"
+              />
+              <p class="text-center text-danger">{{ form.phone1.errors }}</p>
+              <button
+                type="button"
+                class="removePhone btn btn-danger mb-3"
+                style="display: none"
+              >
+                Supprimer un numéro de téléphone
+              </button>
+            </div>
+            <center>
+              <button type="button" class="addPhone btn btn-success mb-3">
+                Ajouter un nouveau numéro de téléphone
+              </button>
+            </center>
+          </div>
+          <p class="mb-3 text-center">Photo de couverture (*)</p>
+          <center>
+            <div id="photo_preview">
+              <img id="preview_image" alt="Aucune image choisie" />
+            </div>
+            <label for="photo_upload" class="custom-file-upload mt-2">
+              Choisir une image
+            </label>
+            <input
+              type="file"
+              name="photo_couverture"
+              id="photo_upload"
+              accept="image/jpeg, image/png, image/jpg"
+            />
+            <p class="text-center text-danger">
+              {{ form.photo_couverture.errors }}
+            </p>
+          </center>
+
+          <h3 class="mb-3 mt-3">2 - Infos professionnelles</h3>
+          <input
+            type="text"
+            name="fonction"
+            value="{{ form.fonction.value|default:'' }}"
+            placeholder="Votre fonction (*)"
+          />
+          <p class="text-center text-danger">{{ form.fonction.errors }}</p>
+          <div id="selectContainer" class="mt-3">
+            <select
+              id="monSelect"
+              style="width: 100%"
+              class="network-select"
+              multiple
+            >
+              <!-- Ajoutez l'option disabled selected pour créer un placeholder -->
+              <option
+                value="facebook"
+                data-image="{% static 'assets/img/logos/facebook.png' %}"
+              >
+                Facebook
+              </option>
+              <option
+                value="instagram"
+                data-image="{% static 'assets/img/logos/instagram.jpg' %}"
+              >
+                Instagram
+              </option>
+              <option
+                value="x"
+                data-image="{% static 'assets/img/logos/x.png' %}"
+              >
+                X
+              </option>
+              <option
+                value="whatsapp_business"
+                data-image="{% static 'assets/img/logos/whatsapp_business.png' %}"
+              >
+                Whatsapp Business
+              </option>
+              <option
+                value="quora"
+                data-image="{% static 'assets/img/logos/quora.png' %}"
+              >
+                Quora
+              </option>
+              <option
+                value="reddit"
+                data-image="{% static 'assets/img/logos/reddit.png' %}"
+              >
+                Reddit
+              </option>
+              <option
+                value="snapchat"
+                data-image="{% static 'assets/img/logos/snapchat.png' %}"
+              >
+                SnapChat
+              </option>
+              <option
+                value="pinterest"
+                data-image="{% static 'assets/img/logos/pinterest.png' %}"
+              >
+                Pinterest
+              </option>
+              <option
+                value="youtube"
+                data-image="{% static 'assets/img/logos/youtube.webp' %}"
+              >
+                YouTube
+              </option>
+              <option
+                value="linkedin"
+                data-image="{% static 'assets/img/logos/linkedin.webp' %}"
+              >
+                LinkedIn
+              </option>
+              <option
+                value="medium"
+                data-image="{% static 'assets/img/logos/medium.png' %}"
+              >
+                Medium
+              </option>
+              <option
+                value="tiktok"
+                data-image="{% static 'assets/img/logos/tiktok.png' %}"
+              >
+                TikTok
+              </option>
+            </select>
+          </div>
+          <input type="text" name="siteweb" placeholder="Votre site web" />
+
+          <h3 class="mb-3 mt-3">3 - Infos de connexion</h3>
+          <p class="mb-3 text-center">
+            Sélectionnez votre email pour la connexion à votre compte (*)
+          </p>
+          <select id="emailSelect" name="email"></select>
+          {% if form.password1.help_text %}
+          <div class="helptext mb-3" id="id_password1_helptext">
+            {{ form.password1.help_text }}
+          </div>
+          {% endif %}
+          <input
+            type="password"
+            value="{{ form.password1value|default:'' }}"
+            name="password1"
+            placeholder="Mot de passe (*)"
+          />
+          <p class="text-center text-danger">{{ form.password1.errors }}</p>
+          <input
+            type="password"
+            value="{{ form.password2value|default:'' }}"
+            name="password2"
+            class="mt-3"
+            placeholder="Confirmez votre mot de passe (*)"
+          />
+          <p class="text-center text-danger">{{ form.password2.errors }}</p>
+          <center>
+            <button class="sec-btn mt-3" type="submit">
+              Valider votre commande
+            </button>
+
+            <p class="mt-3">- Vous avez oublié votre mot de passe ?</p>
+            <a href="{% url 'inscription' %}"
+              >Cliquez ici pour le réinitialiser</a
+            >
+            <p class="mt-3">
+              - Vous n'avez pas de compte ? c'est que vous n'avez pas encore
+              acheté une de nos cartes numériques
+            </p>
+            <a href="{% url 'inscription' %}"
+              >Cliquez ici pour procéder à la commande</a
+            >
+          </center>
+        </form>
+      </div>
     </div>
+  </div>
 </section>
 
 {% endblock content %}
