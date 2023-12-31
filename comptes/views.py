@@ -10,7 +10,6 @@ from django.template.loader import render_to_string
 from .models import Utilisateur
 
 # Create your views here.
-"jesuschrist2000"
 def inscription(request):
     form = InscriptionForm()
 
@@ -24,6 +23,9 @@ def inscription(request):
         form = InscriptionForm(mutable_request_data, request.FILES)
         if form.is_valid():
             user = form.save()
+            user.is_active = False
+            user.lien_profile = f"http://localhost:8000/comptes/profile?id={user.id}"
+            user = user.save()
 
             subject = "Création de compte"
             template = 'comptes/email.html'
@@ -49,21 +51,19 @@ def success(request):
 
 def connexion(request):
     form = ConnexionForm()
-    message = ""
     if request.method == "POST":
         form = ConnexionForm(request.POST)
         if form.is_valid():
-            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-            if user:
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])       
+            if user and not user.is_superuser:
                 login(request, user)
-                messages.success(request, f"Connexion réussie !!, ravie de vous revoir Mr/Mme {user.username}")
+                messages.success(request, f"Connexion réussie !!")
                 return redirect('index')
             else:
-                message = "Username ou email incorrect !"
+                messages.error(request, f"Email et/ou Mot de passe incorrect !")
 
     context = {
-        'form':form,
-        'message':message
+        'form':form
     }
 
     return render(request, 'comptes/connexion.html', context)
@@ -72,15 +72,20 @@ def connexion(request):
 
 def deconnexion(request):
     logout(request)
-    return render(request, 'comptes/deconnexion.html')
+    messages.info(request, "Déconnexion réussie !")
+    return redirect('index')
 
 
 
 def profile(request):
-    user = None
+    user = request.user
     try:
-        id = request.GET.get("id")
-        user = Utilisateur.objects.get(pk=id)
+        if user.is_anonymous:
+            id = request.GET.get("id")
+        else:
+            id = request.user.id
+        user = Utilisateur.objects.get(id=id)
+
     except Exception as e:
         messages.error(request, f"Erreur : {e}")
         return redirect("index")

@@ -1,8 +1,10 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Contacts{% endblock
-title %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}Contacts{% endblock title %} 
+{% block content %}
 <section
   class="hero-section"
-  style="background-image: url({%static'assets/img/our-img.jpg'%})"
+  style="background-image: url({% static 'assets/img/our-img.jpg' %})"
 >
   <div class="container">
     <h2>Contact Us</h2>

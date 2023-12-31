@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .utils.functions import *
 import os
+from PIL import Image
 import uuid
 # Create your models here.
 
@@ -41,22 +42,34 @@ class Utilisateur(AbstractUser):
     fonction = models.CharField(max_length=255, blank=False)
     siteweb = models.URLField(blank=True)
 
-    photo_couverture = models.ImageField(upload_to=user_cover_photo_path, blank=True, null=True)
-    photo_profile = models.ImageField(upload_to=user_profile_photo_path, blank=False, null=False)
+    photo_couverture = models.ImageField(upload_to=user_cover_photo_path, blank=True, null=True, default="photos_couv/default.jpg")
+    photo_profile = models.ImageField(upload_to=user_profile_photo_path, blank=False, null=False, default="photos_profile/default.png")
 
     facebook = models.URLField(blank=True)
-    instagram = models.URLField(blank=True)
+    linkedin = models.URLField(blank=True)
     x = models.URLField(blank=True)
+    instagram = models.URLField(blank=True)
     whatsapp_business = models.URLField(blank=True)
     quora = models.URLField(blank=True)
     reddit = models.URLField(blank=True)
     snapchat = models.URLField(blank=True)
     pinterest = models.URLField(blank=True)
-    youtube = models.URLField(blank=True)
-    linkedin = models.URLField(blank=True)
+    youtube = models.URLField(blank=True)    
     medium = models.URLField(blank=True)
     tiktok = models.URLField(blank=True)
+
+    lien_profile = models.URLField(blank=True)
 
     def __str__(self):
         return f"{self.last_name} {self.first_name} - {self.email}"
     
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.photo_profile:
+            img = Image.open(self.photo_profile.path)
+            # Redimensionnez l'image 
+            output_size = (150, 180)
+            img.thumbnail(output_size)
+            img.save(self.photo_profile.path)
+
+

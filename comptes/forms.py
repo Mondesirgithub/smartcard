@@ -52,5 +52,5 @@ class InscriptionForm(UserCreationForm):
 
 
 class ConnexionForm(forms.Form):
-	username = forms.CharField(required=True,widget=forms.TextInput({'class':'form-control'}), label="Nom d'utilisateur")
-	password = forms.CharField(widget=forms.PasswordInput({'class':'form-control'}), label="Mot de passe")
+	username = forms.CharField(required=True,widget=forms.TextInput({'placeholder':'adresse email'}), label="")
+	password = forms.CharField(required=True, widget=forms.PasswordInput({'placeholder':'mot de passe'}), label="")
