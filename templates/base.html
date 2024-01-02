@@ -66,7 +66,7 @@
         <div class="row align-items-center">
           <div class="col-xl-2">
             <div class="header-style">
-              <a href="index.html">
+              <a href="{% url 'index' %}">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="148.143"
@@ -110,10 +110,10 @@
             <nav class="navbar">
               <ul class="navbar-links">
                 <li class="navbar-dropdown">
-                  <a href="{% url 'index' %}">home</a>
+                  <a href="{% url 'index' %}">Accueil</a>
                 </li>
                 <li class="navbar-dropdown">
-                  <a href="{% url 'about' %}">About</a>
+                  <a href="{% url 'about' %}">A propos</a>
                 </li>
                 <li class="navbar-dropdown">
                   <a href="{% url 'services' %}">Services</a>
@@ -162,7 +162,7 @@
       </div>
       <div class="mobile-nav" id="mobile-nav" style="display: block">
         <div class="res-log">
-          <a href="index.html">
+          <a href="{% url 'index' %}">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="148.143"
@@ -192,64 +192,23 @@
         </div>
 
         <ul>
-          <li class="menu-item-has-children">
-            <a href="JavaScript:void(0)">Home</a>
-
-            <ul class="sub-menu">
-              <li><a href="index.html">home 1</a></li>
-
-              <li><a href="index-2.html">home 2</a></li>
-
-              <li><a href="index-3.html">home 3</a></li>
-
-              <li><a href="index-4.html">home 4</a></li>
-            </ul>
+          <li>
+            <a href="{% url 'index' %}">Accueil</a>
           </li>
 
-          <li><a href="about.html">About</a></li>
-
-          <li class="menu-item-has-children">
-            <a href="JavaScript:void(0)">Portfolio</a>
-
-            <ul class="sub-menu">
-              <li><a href="our-portfolio.html">our portfolio</a></li>
-
-              <li>
-                <a href="portfolio-details-1.html">portfolio details 1</a>
-              </li>
-
-              <li>
-                <a href="portfolio-details-2.html">portfolio details 2</a>
-              </li>
-
-              <li>
-                <a href="portfolio-details-3.html">portfolio details 3</a>
-              </li>
-            </ul>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li>
+            <a href="{% url 'services' %}">Services</a>
           </li>
 
-          <li class="menu-item-has-children">
-            <a href="JavaScript:void(0)">Pages</a>
-
-            <ul class="sub-menu">
-              <li><a href="services.html">Services</a></li>
-              <li><a href="services-details.html">services details</a></li>
-              <li><a href="team-details.html">team details</a></li>
-              <li><a href="pricing-plan.html">pricing plan</a></li>
-              <li><a href="error-404.html">error 404</a></li>
-            </ul>
-          </li>
-
-          <li class="menu-item-has-children">
-            <a href="JavaScript:void(0)">News</a>
-            <ul class="sub-menu">
-              <li><a href="our-blog.html">our blog</a></li>
-              <li><a href="blog-details-1.html">blog details 1</a></li>
-              <li><a href="blog-details-2.html">blog details 2</a></li>
-            </ul>
-          </li>
-
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="{% url 'contacts' %}">Contact</a></li>
+          {% if user.is_authenticated %}
+              <a href="{% url 'deconnexion' %}" class="lightbox-toggle sec-btn mt-4"
+            >Déconnexion</a>
+          {% else %}
+          <a href="{% url 'connexion' %}" class="lightbox-toggle sec-btn mt-4"
+            >Se connecter</a>
+          {% endif %}
         </ul>
         <span class="res-cross"
           ><i class="cls-leftright"></i><i class="cls-rightleft"></i
