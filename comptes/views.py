@@ -25,7 +25,7 @@ def inscription(request):
             user = form.save()
             user.is_active = False
             user.lien_profile = f"https://smartcard.pythonanywhere.com/comptes/profile?id={user.id}"
-            user = user.save()
+            user.save()
 
             subject = "Création de compte"
             template = 'comptes/email.html'
