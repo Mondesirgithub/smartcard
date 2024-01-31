@@ -5,6 +5,7 @@ from . import views as myviews
 
 urlpatterns = [
     path('inscription/', myviews.inscription, name='inscription'),
+    path('modification_profile/', myviews.modifier_profile, name='modifier_profile'),
     path('success/', myviews.success, name='success'),
     path('connexion/', myviews.connexion, name='connexion'),
     path('profile/', myviews.profile, name='profile'),

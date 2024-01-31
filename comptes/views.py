@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model,login,authenticate,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from .forms import InscriptionForm, ConnexionForm
+from .forms import *
 from django.core.mail import send_mail
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
@@ -95,20 +95,19 @@ def profile(request):
     return render(request, 'comptes/profile.html', context)
 
 
-# @login_required
-# def modifier_profile(request):
-#     if request.method == "POST":
-#         form = ModifierProfileForm(request.POST, request.FILES, instance=request.user)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, "Votre profile a été modifié avec succès !")
-#             return redirect('profile')
+@login_required
+def modifier_profile(request):
+    if request.method == "POST":
+        form = ModifierProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Votre profile a été modifié avec succès !")
+            return redirect('index')
+    else:
+        form = ModifierProfileForm(instance=request.user)
 
-#     else:
-#         form = ModifierProfileForm(instance=request.user)
+    context = {
+        'form':form
+    }
 
-#     context = {
-#         'form':form
-#     }
-
-#     return render(request, "comptes/modifier_profile.html", context)
+    return render(request, "comptes/modifier_profile.html", context)

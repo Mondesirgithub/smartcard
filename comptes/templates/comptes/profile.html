@@ -48,7 +48,6 @@
 </head>
 
 <body>
-
     <section class="bg-gray-50">
         <div class="container mx-auto">
             <div class="bg-white shadow rounded-md text-center mx-auto max-w-2xl">
@@ -60,7 +59,8 @@
 
                 <div class="p-7">
                     <!-- <p class="font-medium text-gray-500">@Jordyn</p> -->
-                    <h3 class="text-xl font-bold mb-2">{{user.first_name}} {{user.last_name}}</h3>
+                    <h6 class="text-xl font-bold mb-2">{{user.first_name}} {{user.last_name}}</h6>
+                    <p class="text-xl font-bold mb-2">~ {{user.fonction}} ~</p>
                     <!-- <p class="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p> -->
 
                     <div class="flex items-center justify-center gap-4 mt-7">
@@ -152,9 +152,17 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 293768 333327" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"><path d="M204958 0c5369 45832 32829 78170 77253 81022v43471l-287 27V87593c-44424-2850-69965-30183-75333-76015l-47060-1v192819c6791 86790-60835 89368-86703 56462 30342 18977 79608 6642 73766-68039V0h58365zM78515 319644c-26591-5471-50770-21358-64969-44588-34496-56437-3401-148418 96651-157884v54345l-164 27v-40773C17274 145544 7961 245185 33650 286633c9906 15984 26169 27227 44864 33011z" fill="#26f4ee"/><path d="M218434 11587c3505 29920 15609 55386 35948 70259-27522-10602-43651-34934-47791-70262l11843 3zm63489 82463c3786 804 7734 1348 11844 1611v51530c-25770 2537-48321-5946-74600-21749l4034 88251c0 28460 106 41467-15166 67648-34260 58734-95927 63376-137628 35401 54529 22502 137077-4810 136916-103049v-96320c26279 15803 48830 24286 74600 21748V94050zm-171890 37247c5390-1122 11048-1985 16998-2548v54345c-21666 3569-35427 10222-41862 22528-20267 38754 5827 69491 35017 74111-33931 5638-73721-28750-49999-74111 6434-12304 18180-18959 39846-22528v-51797zm64479-119719h1808-1808z" fill="#fb2c53"/><path d="M206590 11578c5369 45832 30910 73164 75333 76015v51528c-25770 2539-48321-5945-74600-21748v96320c206 125717-135035 135283-173673 72939-25688-41449-16376-141089 76383-155862v52323c-21666 3569-33412 10224-39846 22528-39762 76035 98926 121273 89342-1225V11577l47060 1z"/></svg>
                         </a>
                         {% endif %}
-
-
                     </div>
+                    <center>
+                    <div>
+                      {% if user.siteweb %}
+                      <a href="{{user.siteweb}}" class="h-6 w-6">  
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M5.63605 5.63605C7.19815 4.07395 9.73081 4.07395 11.2929 5.63605L14.1213 8.46448C15.6834 10.0266 15.6834 12.5592 14.1213 14.1213C13.7308 14.5119 13.0976 14.5119 12.7071 14.1213C12.3166 13.7308 12.3166 13.0976 12.7071 12.7071C13.4882 11.9261 13.4882 10.6597 12.7071 9.87869L9.87869 7.05026C9.09764 6.26922 7.83131 6.26922 7.05026 7.05026C6.26922 7.83131 6.26922 9.09764 7.05026 9.87869L7.75737 10.5858C8.1479 10.9763 8.14789 11.6095 7.75737 12C7.36685 12.3905 6.73368 12.3905 6.34316 12L5.63605 11.2929C4.07395 9.73081 4.07395 7.19815 5.63605 5.63605ZM11.2929 9.8787C11.6834 10.2692 11.6834 10.9024 11.2929 11.2929C10.5119 12.074 10.5119 13.3403 11.2929 14.1213L14.1213 16.9498C14.9024 17.7308 16.1687 17.7308 16.9498 16.9498C17.7308 16.1687 17.7308 14.9024 16.9498 14.1213L16.2427 13.4142C15.8521 13.0237 15.8521 12.3905 16.2427 12C16.6332 11.6095 17.2663 11.6095 17.6569 12L18.364 12.7071C19.9261 14.2692 19.9261 16.8019 18.364 18.364C16.8019 19.9261 14.2692 19.9261 12.7071 18.364L9.8787 15.5356C8.3166 13.9735 8.3166 11.4408 9.8787 9.8787C10.2692 9.48817 10.9024 9.48817 11.2929 9.8787Z" fill="#000000"></path> </g></svg>
+                      </a>
+                      {% endif %}
+                    </div>
+                    </center>
+
                     <div class="flex items-center justify-center gap-4 mt-7">
                         <a href="tel:" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="white" width="20" height="20" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 342.06">
@@ -163,7 +171,13 @@
                             <span style="display: block; margin-left: 10px;">Fiche contacts</span>
                         </a>                                              
                     </div>
-
+                    {% if user.is_authenticated %}
+                    <div class="flex items-center justify-center gap-4 mt-2">
+                        <a href="{% url 'modifier_profile' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <span style="display: block; margin-left: 10px;">Modifier</span>
+                        </a>                                              
+                    </div>
+                    {% endif %}
 
                     {% if user.email1 %}
                     <div class="flex items-center justify-center gap-4 mt-3">
